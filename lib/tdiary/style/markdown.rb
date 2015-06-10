@@ -124,6 +124,13 @@ module TDiary
 					end
 				end
 
+				footnote_stashes = HTMLwithPygments.tdiary_style_markdown_footnote_stashes
+				footnote_stashes.each do |num, raw_content|
+					if r["@@tdiary-style-markdown-footnote-#{num}@@"]
+						r["@@tdiary-style-markdown-footnote-#{num}@@"] = raw_content
+					end
+				end
+
 				r
 			end
 
@@ -193,8 +200,28 @@ module TDiary
 		end
 
 		class HTMLwithPygments < Redcarpet::Render::HTML
+			@@tdiary_style_markdown_footnote_stashes = []
+
+			def self.tdiary_style_markdown_footnote_stashes
+				@@tdiary_style_markdown_footnote_stashes
+			end
+
 			def block_code(code, language)
 				Pygments.highlight(code, lexer: language)
+			end
+
+			def footnotes(content)
+				""
+			end
+
+			def footnote_def(content, num)
+				raw_content = content.gsub(/<p>(.+?)<\/p>\n/){ $1 }
+				@@tdiary_style_markdown_footnote_stashes.push([num, raw_content])
+				""
+			end
+
+			def footnote_ref(num)
+				"<%=fn \"@@tdiary-style-markdown-footnote-#{num}@@\"%>"
 			end
 		end
 	end

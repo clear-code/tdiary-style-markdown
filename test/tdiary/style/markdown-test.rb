@@ -503,6 +503,7 @@ NOTE: `{{.NetworkSettings.IPAddress}}` is golang template.
     source = <<-'EOF'
 # subTitle
 
+Ruby{{fn "Object Oriented language"}} is fun!
 HTML[^1] is a markup language[^2].
 
 [^1]: Hyper Text Markup Language
@@ -515,22 +516,13 @@ HTML[^1] is a markup language[^2].
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<p>HTML<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup> is a markup language.</p>
-
-<div class="footnotes">
-<hr>
-<ol>
-
-<li id="fn1">
-<p>Hyper Text Markup Language&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
-</li>
-
-</ol>
-</div>
+<p>Ruby<%=fn "Object Oriented language"%> is fun!
+HTML<%=fn "Hyper Text Markup Language"%> is a markup language<%=fn "language"%>.</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
     EOF
 
+    puts @diary.to_html
     assert_equal(@html, @diary.to_html)
   end
 end
