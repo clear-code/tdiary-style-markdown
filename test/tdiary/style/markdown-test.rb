@@ -504,10 +504,11 @@ NOTE: `{{.NetworkSettings.IPAddress}}` is golang template.
 # subTitle
 
 Ruby{{fn "Object Oriented language"}} is fun!
-HTML[^1] is a markup language[^2].
+HTML[^1] is a markup language[^2][^3].
 
 [^1]: Hyper Text Markup Language
-[^2]: language
+[^2]: [example](http://www.example.com)
+[^3]: http://www.example.com
 
     EOF
     @diary.append(source)
@@ -517,7 +518,7 @@ HTML[^1] is a markup language[^2].
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p>Ruby<%=fn "Object Oriented language"%> is fun!
-HTML<%=fn "Hyper Text Markup Language"%> is a markup language<%=fn "language"%>.</p>
+HTML<%=fn %Q(Hyper Text Markup Language)%> is a markup language<%=fn %Q(<a href="http://www.example.com">example</a>)%><%=fn %Q(<a href="http://www.example.com">http://www.example.com</a>)%>.</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
     EOF

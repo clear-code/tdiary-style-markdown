@@ -221,7 +221,7 @@ module TDiary
 			end
 
 			def footnote_ref(num)
-				"<%=fn \"@@tdiary-style-markdown-footnote-#{num}@@\"%>"
+				"<%=fn %Q(@@tdiary-style-markdown-footnote-#{num}@@)%>"
 			end
 		end
 	end
