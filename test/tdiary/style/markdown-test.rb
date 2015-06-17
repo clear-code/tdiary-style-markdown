@@ -522,7 +522,6 @@ HTML<%=fn "Hyper Text Markup Language"%> is a markup language<%=fn "language"%>.
 </div>
     EOF
 
-    puts @diary.to_html
     assert_equal(@html, @diary.to_html)
   end
 end
