@@ -20,9 +20,20 @@ Or install it yourself as:
 
 ## Usage
 
-if you want to use this style, add @style into tdiary.conf below:
+If you want to use this style, add @style into tdiary.conf below:
 
     @style = 'Markdown'
+
+### Style sheet
+
+Use [rouge](https://github.com/jneen/rouge) for syntax highlighting.
+
+```text
+$ rougify style github > public/github.css
+```
+
+Add `@import url("/github.css");` to your style sheet via tdiary
+configuration.
 
 ## Contributing
 
