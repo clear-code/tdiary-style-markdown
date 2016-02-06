@@ -1,5 +1,6 @@
 require 'redcarpet'
-require 'pygments'
+require 'rouge'
+require 'rouge/plugins/redcarpet'
 require 'twitter-text'
 
 module TDiary
@@ -61,7 +62,7 @@ module TDiary
 				end
 
 				# 2. Apply markdown conversion
-				renderer = Redcarpet::Markdown.new(HTMLwithPygments,
+				renderer = Redcarpet::Markdown.new(HTMLwithRouge,
 															  fenced_code_blocks: true,
 															  tables: true,
 															  autolink: true,
@@ -124,7 +125,7 @@ module TDiary
 					end
 				end
 
-				footnote_stashes = HTMLwithPygments.tdiary_style_markdown_footnote_stashes
+				footnote_stashes = HTMLwithRouge.tdiary_style_markdown_footnote_stashes
 				footnote_stashes.each do |num, raw_content|
 					if r["@@tdiary-style-markdown-footnote-#{num}@@"]
 						r["@@tdiary-style-markdown-footnote-#{num}@@"] = raw_content
@@ -199,15 +200,12 @@ module TDiary
 			end
 		end
 
-		class HTMLwithPygments < Redcarpet::Render::HTML
+		class HTMLwithRouge < Redcarpet::Render::HTML
+			include Rouge::Plugins::Redcarpet
 			@@tdiary_style_markdown_footnote_stashes = []
 
 			def self.tdiary_style_markdown_footnote_stashes
 				@@tdiary_style_markdown_footnote_stashes
-			end
-
-			def block_code(code, language)
-				Pygments.highlight(code, lexer: language)
 			end
 
 			def footnotes(content)

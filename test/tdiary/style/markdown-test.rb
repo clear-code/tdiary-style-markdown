@@ -33,8 +33,9 @@ honbun
 <h4>subTitleH4</h4>
 
 <p>honbun</p>
-<div class="highlight"><pre><span class="c"># comment in code block</span>
-</pre></div><%=section_leave_proc( Time.at( 1041346800 ) )%>
+<pre class="highlight plaintext"><code># comment in code block
+</code></pre>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
       EOF
       assert_equal(@html, @diary.to_html)
@@ -171,8 +172,9 @@ http://example.com is example.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<div class="highlight"><pre><span class="vi">@foo</span>
-</pre></div>
+<pre class="highlight ruby"><code><span class="vi">@foo</span>
+</code></pre>
+
 <p><a href="http://example.com">http://example.com</a> is example.com</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -282,10 +284,11 @@ http://example.com is example.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<div class="highlight"><pre> <span class="k">def</span> <span class="nf">class</span>
-   <span class="vi">@foo</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span>
+<pre class="highlight ruby"><code> <span class="k">def</span> <span class="nf">class</span>
+   <span class="vi">@foo</span> <span class="o">=</span> <span class="s1">'bar'</span>
  <span class="k">end</span>
-</pre></div><%=section_leave_proc( Time.at( 1041346800 ) )%>
+</code></pre>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
     EOF
     assert_equal(@html, @diary.to_html)
@@ -327,8 +330,9 @@ p :some_code
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<div class="highlight"><pre><span class="nb">p</span> <span class="ss">:some_code</span>
-</pre></div>
+<pre class="highlight ruby"><code><span class="nb">p</span> <span class="ss">:some_code</span>
+</code></pre>
+
 <p>@a_matsuda is amatsuda</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -395,9 +399,10 @@ p :some_code
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<div class="highlight"><pre><span class="o">:</span><span class="nl">sushi:</span><span class="w"> </span><span class="err">は</span>
-<span class="err">美味しい</span>
-</pre></div><%=section_leave_proc( Time.at( 1041346800 ) )%>
+<pre class="highlight plaintext"><code>:sushi: は
+美味しい
+</code></pre>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
       EOF
       assert_equal(@html, @diary.to_html)
@@ -460,8 +465,9 @@ ruby -e "puts \"hello, world.\""
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<div class="highlight"><pre><span class="vg">ruby</span><span class="w"> </span><span class="o">-</span><span class="vg">e</span><span class="w"> </span><span class="s2">&quot;puts \&quot;</span><span class="vg">hello</span><span class="p">,</span><span class="w"> </span><span class="vg">world</span><span class="o">.\</span><span class="s2">&quot;&quot;</span>
-</pre></div>
+<pre class="highlight plaintext"><code>ruby -e "puts \"hello, world.\""
+</code></pre>
+
 <p><code>ruby -e &quot;puts \&quot;hello, world.\&quot;&quot;</code></p>
 
 <p><%=plugin "\0", "\1", "\2"%></p>
@@ -490,8 +496,9 @@ NOTE: `{{.NetworkSettings.IPAddress}}` is golang template.
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p>Get IP Address of Docker Container:</p>
-<div class="highlight"><pre><span class="o">%</span> <span class="n">docker</span> <span class="n">inspect</span> <span class="o">-</span><span class="n">f</span> <span class="s">&quot;{{.NetworkSettings.IPAddress}}  {{.Config.Hostname}}  # Name:{{.Name}}&quot;</span> <span class="err">`</span><span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">q</span><span class="err">`</span>
-</pre></div>
+<pre class="highlight plaintext"><code>% docker inspect -f "{{.NetworkSettings.IPAddress}}  {{.Config.Hostname}}  # Name:{{.Name}}" `docker ps -q`
+</code></pre>
+
 <p>NOTE: <code>{{.NetworkSettings.IPAddress}}</code> is golang template.</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
