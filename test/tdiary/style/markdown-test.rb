@@ -33,9 +33,8 @@ honbun
 <h4>subTitleH4</h4>
 
 <p>honbun</p>
-<pre class="highlight plaintext"><code># comment in code block
-</code></pre>
-<%=section_leave_proc( Time.at( 1041346800 ) )%>
+<div class="highlight"><pre class="highlight plaintext"><code># comment in code block
+</code></pre></div><%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
       EOF
       assert_equal(@html, @diary.to_html)
@@ -172,9 +171,8 @@ http://example.com is example.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<pre class="highlight ruby"><code><span class="vi">@foo</span>
-</code></pre>
-
+<div class="highlight"><pre class="highlight ruby"><code><span class="vi">@foo</span>
+</code></pre></div>
 <p><a href="http://example.com">http://example.com</a> is example.com</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -284,11 +282,10 @@ http://example.com is example.com
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<pre class="highlight ruby"><code> <span class="k">def</span> <span class="nf">class</span>
+<div class="highlight"><pre class="highlight ruby"><code> <span class="k">def</span> <span class="nf">class</span>
    <span class="vi">@foo</span> <span class="o">=</span> <span class="s1">'bar'</span>
  <span class="k">end</span>
-</code></pre>
-<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</code></pre></div><%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
     EOF
     assert_equal(@html, @diary.to_html)
@@ -330,9 +327,8 @@ p :some_code
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<pre class="highlight ruby"><code><span class="nb">p</span> <span class="ss">:some_code</span>
-</code></pre>
-
+<div class="highlight"><pre class="highlight ruby"><code><span class="nb">p</span> <span class="ss">:some_code</span>
+</code></pre></div>
 <p>@a_matsuda is amatsuda</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -399,10 +395,9 @@ p :some_code
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<pre class="highlight plaintext"><code>:sushi: は
+<div class="highlight"><pre class="highlight plaintext"><code>:sushi: は
 美味しい
-</code></pre>
-<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</code></pre></div><%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
       EOF
       assert_equal(@html, @diary.to_html)
@@ -465,9 +460,8 @@ ruby -e "puts \"hello, world.\""
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<pre class="highlight plaintext"><code>ruby -e "puts \"hello, world.\""
-</code></pre>
-
+<div class="highlight"><pre class="highlight plaintext"><code>ruby -e "puts \"hello, world.\""
+</code></pre></div>
 <p><code>ruby -e &quot;puts \&quot;hello, world.\&quot;&quot;</code></p>
 
 <p><%=plugin "\0", "\1", "\2"%></p>
@@ -496,9 +490,8 @@ NOTE: `{{.NetworkSettings.IPAddress}}` is golang template.
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p>Get IP Address of Docker Container:</p>
-<pre class="highlight plaintext"><code>% docker inspect -f "{{.NetworkSettings.IPAddress}}  {{.Config.Hostname}}  # Name:{{.Name}}" `docker ps -q`
-</code></pre>
-
+<div class="highlight"><pre class="highlight plaintext"><code>% docker inspect -f "{{.NetworkSettings.IPAddress}}  {{.Config.Hostname}}  # Name:{{.Name}}" `docker ps -q`
+</code></pre></div>
 <p>NOTE: <code>{{.NetworkSettings.IPAddress}}</code> is golang template.</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
