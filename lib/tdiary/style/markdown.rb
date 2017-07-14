@@ -1,6 +1,5 @@
-require 'redcarpet'
+require 'commonmarker'
 require 'rouge'
-require 'rouge/plugins/redcarpet'
 require 'twitter-text'
 
 module TDiary
@@ -62,12 +61,10 @@ module TDiary
 				end
 
 				# 2. Apply markdown conversion
-				renderer = Redcarpet::Markdown.new(HTMLwithRouge,
-															  fenced_code_blocks: true,
-															  tables: true,
-															  autolink: true,
-															  footnotes: true)
-				r = renderer.render(r)
+				extensions = [:autolink, :table]
+				renderer = HTMLwithRouge.new(extensions: extensions)
+				doc = CommonMarker.render_doc(r, :DEFAULT, extensions)
+				r = renderer.render(doc)
 
 				# 3. Stash <pre> and <code> tags
 				pre_tag_stashes = []
@@ -122,13 +119,6 @@ module TDiary
 				plugin_stashes.each.with_index do |(str, erb), i|
 					if r["@@tdiary-style-markdown-plugin#{i}@@"]
 						r["@@tdiary-style-markdown-plugin#{i}@@"] = erb
-					end
-				end
-
-				footnote_stashes = HTMLwithRouge.tdiary_style_markdown_footnote_stashes
-				footnote_stashes.each do |num, raw_content|
-					if r["@@tdiary-style-markdown-footnote-#{num}@@"]
-						r["@@tdiary-style-markdown-footnote-#{num}@@"] = raw_content
 					end
 				end
 
@@ -200,26 +190,52 @@ module TDiary
 			end
 		end
 
-		class HTMLwithRouge < Redcarpet::Render::HTML
-			include Rouge::Plugins::Redcarpet
-			@@tdiary_style_markdown_footnote_stashes = []
+		class HTMLwithRouge < CommonMarker::HtmlRenderer
 
-			def self.tdiary_style_markdown_footnote_stashes
-				@@tdiary_style_markdown_footnote_stashes
+			def code_block(node)
+				language = if node.fence_info && !node.fence_info.empty?
+								  node.fence_info.split(/\s+/)[0]
+							  else
+								  nil
+							  end
+				code = node.string_content
+				lexer = Rouge::Lexer.find_fancy(language, code) || Rouge::Lexers::PlainText
+				formatter = rouge_formatter(lexer)
+				highlighted = formatter.format(lexer.lex(code))
+				block do
+					if option_enabled?(:GITHUB_PRE_LANG)
+						out("<pre#{sourcepos(node)}")
+						if language
+							out(' lang="', language, '"')
+						end
+						out('><code>')
+					else
+						out("<pre#{sourcepos(node)}")
+						if language
+							out(' class="highlight ', language, '">')
+						else
+							out(' class="highlight plaintext">')
+						end
+					end
+					out('<code>')
+					out(highlighted)
+					out('</code></pre>')
+				end
 			end
 
-			def footnotes(content)
-				""
+			def image(node)
+				out('<img src="', escape_href(node.url), '"')
+				plain do
+					out(' alt="', :children, '"')
+				end
+				if node.title && !node.title.empty?
+					out(' title="', escape_html(node.title), '"')
+				end
+				out('>')
 			end
 
-			def footnote_def(content, num)
-				raw_content = content.gsub(/<p>(.+?)<\/p>\n/){ $1 }
-				@@tdiary_style_markdown_footnote_stashes.push([num, raw_content])
-				""
-			end
-
-			def footnote_ref(num)
-				"<%=fn %Q(@@tdiary-style-markdown-footnote-#{num}@@)%>"
+			def rouge_formatter(lexer)
+				::Rouge::Formatters::HTML.new(:css_class => "highlight #{lexer.tag}")
 			end
 		end
 	end
