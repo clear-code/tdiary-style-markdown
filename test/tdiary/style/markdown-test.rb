@@ -520,7 +520,7 @@ HTML<%=fn %Q(Hyper Text Markup Language)%> is a markup language<%=fn %Q(<a href=
   end
 
   class QiitaStyleCodeBlock < self
-    def test_basic
+    def test_caption
       source = <<-EOF
 # Code Blocks
 
@@ -551,7 +551,7 @@ p "OK"
       assert_equal(@html, @diary.to_html)
     end
 
-    def test_path_with_tilde
+    def test_caption_with_tilde
       source = <<-EOF
 # Code Blocks
 
@@ -573,6 +573,37 @@ p "OK"
 <code>p "OK"
 </code></pre>
 <pre class="highlight plaintext"><span class="caption">~/example2.rb</span>
+<code>p "OK"
+</code></pre>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+      EOF
+
+      assert_equal(@html, @diary.to_html)
+    end
+
+    def test_caption_with_backtick
+      source = <<-EOF
+# Code Blocks
+
+```plaintext:e`x`ample1.rb
+p "OK"
+```
+
+~~~plaintext:e`x`ample2.rb
+p "OK"
+~~~
+      EOF
+      @diary.append(source)
+
+      @html = <<-EOF
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "Code Blocks" ) %></h3>
+<pre class="highlight plaintext"><span class="caption">e`x`ample1.rb</span>
+<code>p "OK"
+</code></pre>
+<pre class="highlight plaintext"><span class="caption">e`x`ample2.rb</span>
 <code>p "OK"
 </code></pre>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
