@@ -518,4 +518,64 @@ HTML<%=fn %Q(Hyper Text Markup Language)%> is a markup language<%=fn %Q(<a href=
 
     assert_equal(@html, @diary.to_html)
   end
+
+  class QiitaStyleCodeBlock < self
+    def test_basic
+      source = <<-EOF
+# Code Blocks
+
+```ruby:example1.rb
+p "OK"
+```
+
+~~~ruby:example2.rb
+p "OK"
+~~~
+      EOF
+      @diary.append(source)
+
+      @html = <<-EOF
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "Code Blocks" ) %></h3>
+<pre class="highlight ruby"><span class="caption">example1.rb</span><code>p "OK"
+</code></pre>
+<pre class="highlight ruby">span class="caption">example2.rb</span><code>p "OK"
+</code></pre>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+      EOF
+
+      assert_equal(@html, @diary.to_html)
+    end
+
+    def test_path_with_childe
+      source = <<-EOF
+# Code Blocks
+
+```ruby:~/example1.rb
+p "OK"
+```
+
+~~~ruby:~/example2.rb
+p "OK"
+~~~
+      EOF
+      @diary.append(source)
+
+      @html = <<-EOF
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "Code Blocks" ) %></h3>
+<pre class="highlight ruby"><span class="caption">~/example1.rb</span><code>p "OK"
+</code></pre>
+<pre class="highlight ruby"><span class="caption">~/example1.rb</span><code>p "OK"
+</code></pre>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+      EOF
+
+      assert_equal(@html, @diary.to_html)
+    end
+  end
 end
