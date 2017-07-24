@@ -551,7 +551,7 @@ p "OK"
       assert_equal(@html, @diary.to_html)
     end
 
-    def test_path_with_childe
+    def test_path_with_tilde
       source = <<-EOF
 # Code Blocks
 
