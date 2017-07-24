@@ -4,6 +4,8 @@
 
 This is based on tdiary-style-gfm gem.
 
+[![Build Status](https://travis-ci.org/clear-code/tdiary-style-markdown.svg?branch=master)](https://travis-ci.org/clear-code/tdiary-style-markdown)
+
 ## Installation
 
 Add this line to your application's Gemfile:
