@@ -572,7 +572,7 @@ p "OK"
 <pre class="highlight plaintext"><span class="caption">~/example1.rb</span>
 <code>p "OK"
 </code></pre>
-<pre class="highlight plaintext"><span class="caption">~/example1.rb</span>
+<pre class="highlight plaintext"><span class="caption">~/example2.rb</span>
 <code>p "OK"
 </code></pre>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
