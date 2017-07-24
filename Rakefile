@@ -1,3 +1,5 @@
+task :default => :test
+
 require "bundler/gem_tasks"
 
 desc "Run tests"
