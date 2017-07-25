@@ -213,7 +213,7 @@ module TDiary
 						if language
 							out(' lang="', language, '"')
 						end
-						out(">#{caption_part}<code>")
+						out(">")
 					else
 						out("<pre#{sourcepos(node)}")
 						if language
