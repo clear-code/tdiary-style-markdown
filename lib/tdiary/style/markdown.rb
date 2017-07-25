@@ -199,11 +199,9 @@ module TDiary
 								  nil
 							  end
 				caption_part = ""
-				if language && language.include?(":")
-					language, *caption = language.split(":")
-					unless caption.empty?
-						caption_part = "<span class=\"caption\">#{escape_html(caption.join(":"))}</span>\n"
-					end
+				language, caption = language.split(":", 2)
+				if caption
+					caption_part = "<span class=\"caption\">#{escape_html(caption)}</span>\n"
 				end
 				code = node.string_content
 				lexer = Rouge::Lexer.find_fancy(language, code) || Rouge::Lexers::PlainText
