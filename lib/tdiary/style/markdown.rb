@@ -199,7 +199,7 @@ module TDiary
 								  nil
 							  end
 				caption_part = ""
-				language, caption = language.split(":", 2)
+				language, caption = language.split(":", 2) if language
 				if caption
 					caption_part = "<span class=\"caption\">#{escape_html(caption)}</span>\n"
 				end
