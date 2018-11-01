@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'commonmarker'
   spec.add_dependency 'rouge'
-  spec.add_dependency 'twitter-text'
+  spec.add_dependency 'twitter-text', '~> 3.0.0'
   spec.add_dependency 'gemoji'
 
   spec.add_development_dependency "bundler", "~> 1.3"
