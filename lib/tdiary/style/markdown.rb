@@ -81,8 +81,12 @@ module TDiary
 				end
 
 				# 4. Convert miscellaneous
-				if pre_tag_stashes.none? && code_tag_stashes.none?
-					r = Twitter::Autolink.auto_link_usernames_or_lists(r)
+				r.gsub!(/>(.+?)</) do
+					if $1.include?("<a ")
+						">#{$1}<"
+					else
+						">#{Twitter::TwitterText::Autolink.auto_link_usernames_or_lists($1)}<"
+					end
 				end
 
 				r = r.emojify

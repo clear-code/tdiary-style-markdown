@@ -322,7 +322,7 @@ p :some_code
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <pre class="highlight ruby"><code><span class="nb">p</span> <span class="ss">:some_code</span>
 </code></pre>
-<p>@a_matsuda is amatsuda</p>
+<p>@<a class="tweet-url username" href="https://twitter.com/a_matsuda" rel="nofollow">a_matsuda</a> is amatsuda</p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
       EOF
@@ -344,7 +344,105 @@ p :some_code
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p><code>:some_code</code></p>
-<p>@a_matsuda is amatsuda</p>
+<p>@<a class="tweet-url username" href="https://twitter.com/a_matsuda" rel="nofollow">a_matsuda</a> is amatsuda</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+      EOF
+      assert_equal(@html, @diary.to_html)
+    end
+
+    def test_twitter_username_with_code_and_username
+      source = <<-'EOF'
+# subTitle
+
+`:some_code` @a_matsuda is amatsuda
+      EOF
+      @diary.append(source)
+
+      @html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p><code>:some_code</code> @<a class="tweet-url username" href="https://twitter.com/a_matsuda" rel="nofollow">a_matsuda</a> is amatsuda</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+      EOF
+      assert_equal(@html, @diary.to_html)
+    end
+
+    def test_twitter_username_with_code_and_username_without_space
+      source = <<-'EOF'
+# subTitle
+
+`:some_code`@a_matsuda is amatsuda
+      EOF
+      @diary.append(source)
+
+      @html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p><code>:some_code</code>@a_matsuda is amatsuda</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+      EOF
+      assert_equal(@html, @diary.to_html)
+    end
+
+    def test_twitter_username_with_code_tag
+      source = <<-'EOF'
+# subTitle
+
+<code>@a_matsuda</code> is amatsuda
+      EOF
+      @diary.append(source)
+
+      @html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p><code>@a_matsuda</code> is amatsuda</p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+      EOF
+      assert_equal(@html, @diary.to_html)
+    end
+
+    def test_twitter_username_in_link_text
+      source = <<-'EOF'
+# subTitle
+
+[@a_matsuda is amatsuda](https://example.com)
+      EOF
+      @diary.append(source)
+
+      @html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<p><a href="https://example.com">@a_matsuda is amatsuda</a></p>
+<%=section_leave_proc( Time.at( 1041346800 ) )%>
+</div>
+      EOF
+      assert_equal(@html, @diary.to_html)
+    end
+
+    def test_twitter_username_in_sourcecode
+      source = <<-'EOF'
+# subTitle
+
+```ruby
+@a_matsuda = "amatsuda"
+```
+      EOF
+      @diary.append(source)
+
+      @html = <<-'EOF'
+<div class="section">
+<%=section_enter_proc( Time.at( 1041346800 ) )%>
+<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<pre class="highlight ruby"><code><span class="vi">@a_matsuda</span> <span class="o">=</span> <span class="s2">"amatsuda"</span>
+</code></pre>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
       EOF
