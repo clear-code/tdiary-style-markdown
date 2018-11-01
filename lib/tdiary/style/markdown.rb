@@ -62,7 +62,8 @@ module TDiary
 
 				# 2. Apply markdown conversion
 				extensions = [:autolink, :table]
-				renderer = HTMLwithRouge.new(extensions: extensions)
+				options = [:HARDBREAKS, :UNSAFE]
+				renderer = HTMLwithRouge.new(options: options, extensions: extensions)
 				doc = CommonMarker.render_doc(r, :DEFAULT, extensions)
 				r = renderer.render(doc)
 
